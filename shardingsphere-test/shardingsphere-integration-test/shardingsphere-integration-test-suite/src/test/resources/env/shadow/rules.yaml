@@ -54,3 +54,4 @@ rules:
   keyGenerators:
     constant:
       type: Constant
+
