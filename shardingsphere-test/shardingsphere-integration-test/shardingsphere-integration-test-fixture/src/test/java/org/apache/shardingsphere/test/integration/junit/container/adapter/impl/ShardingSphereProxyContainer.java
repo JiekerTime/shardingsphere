@@ -43,9 +43,13 @@ public final class ShardingSphereProxyContainer extends ShardingSphereAdapterCon
     private final AtomicReference<DataSource> dataSourceProvider = new AtomicReference<>();
     
     public ShardingSphereProxyContainer(final ParameterizedArray parameterizedArray) {
-        super("shardingsphere-proxy", "apache/shardingsphere-proxy-test", parameterizedArray);
+        this(null, parameterizedArray);
     }
-    
+
+    public ShardingSphereProxyContainer(final String dockerName, final ParameterizedArray parameterizedArray) {
+        super(Objects.isNull(dockerName) ? "ShardingSphere-Proxy" : dockerName, "apache/shardingsphere-proxy-test",true, parameterizedArray);
+    }
+
     /**
      * Mount path into container from classpath.
      *
