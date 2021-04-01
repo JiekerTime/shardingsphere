@@ -47,7 +47,7 @@ public final class ShardingSphereProxyContainer extends ShardingSphereAdapterCon
     }
 
     public ShardingSphereProxyContainer(final String dockerName, final ParameterizedArray parameterizedArray) {
-        super(Objects.isNull(dockerName) ? "ShardingSphere-Proxy" : dockerName, "apache/shardingsphere-proxy-test",true, parameterizedArray);
+        super(Objects.isNull(dockerName) ? "ShardingSphere-Proxy" : dockerName, "apache/shardingsphere-proxy-test", parameterizedArray);
     }
 
     /**
