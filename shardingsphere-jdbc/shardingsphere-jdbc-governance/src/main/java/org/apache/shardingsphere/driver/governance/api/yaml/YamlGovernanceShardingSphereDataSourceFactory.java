@@ -55,6 +55,21 @@ public final class YamlGovernanceShardingSphereDataSourceFactory {
         return createDataSource(new YamlDataSourceConfigurationSwapper().swapToDataSources(configurations.getDataSources()),
                 configurations, configurations.getProps(), configurations.getGovernance());
     }
+
+    /**
+     * Create ShardingSphere data source.
+     *
+     * @param dataSourceMap data source
+     * @param governance governance configuration
+     * @param rulesYamlFile YAML file for rule configurations
+     * @return ShardingSphere data source
+     * @throws SQLException  SQL exception
+     * @throws IOException  SQL exception
+     */
+    public static DataSource createDataSource(final Map<String, DataSource> dataSourceMap, final YamlGovernanceConfiguration governance, final File rulesYamlFile) throws SQLException, IOException {
+        YamlGovernanceRootRuleConfigurations configurations = unmarshal(rulesYamlFile);
+        return createDataSource(dataSourceMap, configurations, configurations.getProps(), governance);
+    }
     
     /**
      * Create ShardingSphere data source.
