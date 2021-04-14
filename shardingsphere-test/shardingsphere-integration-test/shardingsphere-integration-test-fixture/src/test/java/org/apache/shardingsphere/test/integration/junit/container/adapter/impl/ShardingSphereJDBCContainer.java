@@ -30,8 +30,6 @@ import org.testcontainers.containers.wait.strategy.WaitStrategy;
 
 import javax.sql.DataSource;
 import java.io.File;
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -63,14 +61,10 @@ public final class ShardingSphereJDBCContainer extends ShardingSphereAdapterCont
                 .findFirst()
                 .orElseThrow(Exception::new);
         Map<String, DataSource> dataSourceMap = storageContainer.getDataSourceMap();
-        try {
-            if ("sharding_governance".equals(getParameterizedArray().getScenario())) {
-                dataSource = createDataSource(dataSourceMap, governance, 0);
-            } else {
-                dataSource = YamlShardingSphereDataSourceFactory.createDataSource(dataSourceMap, new File(EnvironmentPath.getRulesConfigurationFile(getParameterizedArray().getScenario())));
-            }
-        } catch (SQLException | IOException ex) {
-            throw new RuntimeException(ex);
+        if ("sharding_governance".equals(getParameterizedArray().getScenario())) {
+            dataSource = createDataSource(dataSourceMap, governance, 0);
+        } else {
+            dataSource = YamlShardingSphereDataSourceFactory.createDataSource(dataSourceMap, new File(EnvironmentPath.getRulesConfigurationFile(getParameterizedArray().getScenario())));
         }
         isHealthy.set(true);
     }
