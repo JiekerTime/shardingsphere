@@ -23,28 +23,20 @@ import org.apache.shardingsphere.test.integration.junit.compose.ComposeManager;
 import org.apache.shardingsphere.test.integration.junit.param.ParameterizedArrayFactory;
 import org.apache.shardingsphere.test.integration.junit.param.model.AssertionParameterizedArray;
 import org.apache.shardingsphere.test.integration.junit.param.model.ParameterizedArray;
-import org.apache.shardingsphere.test.integration.junit.runner.parallel.annotaion.ParallelLevel;
-import org.apache.shardingsphere.test.integration.junit.runner.parallel.annotaion.ParallelRuntimeStrategy;
 import org.junit.ClassRule;
-import org.junit.Test;
 import org.junit.runners.Parameterized.Parameters;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.ParseException;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-@ParallelRuntimeStrategy(ParallelLevel.CASE)
-public class GeneralRQLIT extends BaseRQLIT {
+//@ParallelRuntimeStrategy(ParallelLevel.CASE)
+public class GeneralRQLIT {
 
     @ClassRule
     public static ComposeManager composeManager = new ComposeManager("GeneralRQLIT");
 
     public GeneralRQLIT(final AssertionParameterizedArray parameter) {
-        super(parameter);
+//        super(parameter);
     }
 
     @Parameters(name = "{0}")
@@ -53,24 +45,22 @@ public class GeneralRQLIT extends BaseRQLIT {
                 .stream()
                 .filter(each -> SQLExecuteType.Literal == each.getSqlExecuteType())
                 .filter(each -> "proxy".equals(each.getAdapter()))
-                // TODO close temp
-                .filter(each -> false)
                 .peek(each -> each.setCompose(composeManager.getOrCreateCompose(each)))
                 .collect(Collectors.toList());
     }
 
-    @Test
-    public void assertExecute() throws SQLException, ParseException {
-        try (Connection connection = getTargetDataSource().getConnection()) {
-            assertExecuteForStatement(connection);
-        }
-    }
+//    @Test
+//    public void assertExecute() throws SQLException, ParseException {
+//        try (Connection connection = getTargetDataSource().getConnection()) {
+//            assertExecuteForStatement(connection);
+//        }
+//    }
 
-    private void assertExecuteForStatement(final Connection connection) throws SQLException, ParseException {
-        try (
-                Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery(getSQL())) {
-            assertResultSet(resultSet);
-        }
-    }
+//    private void assertExecuteForStatement(final Connection connection) throws SQLException, ParseException {
+//        try (
+//                Statement statement = connection.createStatement();
+//                ResultSet resultSet = statement.executeQuery(getSQL())) {
+//            assertResultSet(resultSet);
+//        }
+//    }
 }
