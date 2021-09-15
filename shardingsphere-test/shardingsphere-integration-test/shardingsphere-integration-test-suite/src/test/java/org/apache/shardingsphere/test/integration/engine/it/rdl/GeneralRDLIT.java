@@ -53,6 +53,8 @@ public class GeneralRDLIT extends BaseRDLIT {
                 .stream()
                 .filter(each -> SQLExecuteType.Literal == each.getSqlExecuteType())
                 .filter(each -> "proxy".equals(each.getAdapter()))
+                // TODO close temp
+                .filter(each -> false)
                 .peek(each -> each.setCompose(composeManager.getOrCreateCompose(each)))
                 .collect(Collectors.toList());
     }
