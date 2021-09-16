@@ -37,7 +37,7 @@ import java.text.ParseException;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-@ParallelRuntimeStrategy(ParallelLevel.SCENARIO)
+@ParallelRuntimeStrategy(ParallelLevel.CASE)
 public final class GeneralRDLIT extends BaseRDLIT {
 
     @ClassRule
